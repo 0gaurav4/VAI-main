@@ -1,0 +1,204 @@
+
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+.table-container {
+    border-radius: 20px; /* Adjust the value to your preference */
+    overflow: hidden; /* Ensure table corners are rounded */
+}
+
+footer{
+    display: none;
+}
+
+.table {
+    --bs-table-bg: color(srgb 0.14 0.14 0.14);
+    --bs-table-accent-bg: color(srgb 0.14 0.14 0.14)#000;
+    --bs-table-striped-color: #212528;
+    --bs-table-striped-bg: #0d6efd;
+    --bs-table-active-color: #0d6efd;
+    --bs-table-active-bg: color(srgb 0.14 0.14 0.14);
+    --bs-table-hover-color: #fffd83;
+    --bs-table-hover-bg: #000;
+    width: 100%;
+    margin-bottom: 14rem;
+    color: #f8f9fa;
+    vertical-align: baseline;
+    border-color: rgba(13, 110, 253, .25);
+}
+table {
+    caption-side: bottom;
+    border-collapse: separate;
+    border-radius: 20%;
+}
+
+.button-74 {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 700;
+  color: #000842;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.button-74:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #100e0e;
+  font-weight: bold;
+  transform: translateY(-7px);
+}
+
+.button-74:active {
+  transform: translateY(-1px);
+}
+
+a {
+  text-decoration: none;
+  color: #422800;
+  font-weight: 600; 
+}
+
+.button75 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: .3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.svgIcon {
+  width: 12px;
+  transition-duration: .3s;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.button75:hover {
+  width: 140px;
+  border-radius: 50px;
+  transition-duration: .3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.button75:hover .svgIcon {
+  width: 50px;
+  transition-duration: .3s;
+  transform: translateY(60%);
+}
+
+.button75::before {
+  position: absolute;
+  top: -15px;
+  content: "Delete";
+  color: white;
+  transition-duration: .3s;
+  font-size: 2px;
+}
+
+.button75:hover::before {
+  font-size:10px;
+  font-weight:bold;
+  opacity: 1;
+  transform: translateY(30px);
+  transition-duration: .3s;
+}
+
+
+@media screen and (max-width: 768px) {
+  .button75 {
+    width: 100%;
+  }
+  .button75::before {
+    font-size: 1.5vw;
+  }
+  .button75:hover::before {
+    font-size: 2.5vw;
+  }
+  .button75 {
+    height: 10vh;
+  }
+  .svgIcon {
+    width: 5vh;
+  }
+  .button75:hover .svgIcon {
+    width: 7.5vh;
+  }
+  .button75:hover {
+    width: 100%;
+  }
+  .table{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+  }
+  .table-container{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+  }
+  }
+
+
+
+</style>
+{% endblock css %}
+{% block body %}
+
+    <h3 class="text-center p-3">
+        <b style="color: rgb(242, 247, 250);">Results Edited Files </b>         
+        <!-- {% include "notify.html" %} -->
+        
+    </h3>
+<div class="m-5 table-container">
+<table class="table table-striped|sm|bordered table-inverse table-responsive table-container">
+    <thead class="thead-inverse|thead-default">
+        <tr>
+            <th><b>File-Name</b></th>
+            <th><b>File-Preview</b></th>
+            <th><b>Download</b></th>
+            <th><b>Delete</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in list %}
+        <tr>
+            <td >{{item}}</td>
+            <td >
+              <a href="/static/results/{{item}}" class="btn btn-primary">View</a>
+            </td>
+            <td >
+              <a href="/static/results/{{item}}" download="{{item}}" class="btn btn-primary">Download</a>
+            </td>
+
+            <!-- <td ><a href="/edit/{{item.id}}"><button class="button-74" role="button">Edit</button></a></td> -->
+            <td style="width: 60px!important;" ><button class="button75" role="button"><a href="/file/delete/?p=static/results/{{item}}"> <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg> </a></button></td>
+        </tr>
+        {% endfor %}    
+    </tbody>    
+</table>
+</div>
+
+{% endblock body %}

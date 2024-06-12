@@ -1,0 +1,701 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+
+<style>
+  footer{
+    position: relative !important;
+  }
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .swiper {
+        width: 100%;
+        height: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .swiper-slide {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .mySwiper2 {
+        height: 80%;
+        width: 100%;
+    }
+
+    .mySwiper {
+        height: 20%;
+        box-sizing: border-box;
+        padding: 10px 0;
+    }
+
+    .mySwiper .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+    }
+
+    .mySwiper .swiper-slide-thumb-active {
+        opacity: 1;
+    }
+
+    .container {
+        color: #c3daf4
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .function-all-thumbs .thumb-item {
+        cursor: pointer;
+        padding: 10px 20px;
+        border-radius: 20px;
+        transition: all 0.3s;
+    }
+
+    .function-all-thumbs .thumb-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .function-all-thumbs .thumb-item.active {
+        background-color: #f8f9fa;
+    }
+
+    .function-all-thumbs .thumb-item img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .function-all-thumbs .thumb-item span {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .function-content {
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .function-content p {
+        font-size: 18px;
+        line-height: 1.5;
+    }
+
+    .function-content h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .function-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .function-content li {
+        margin-bottom: 10px;
+    }
+
+    .function-content li:before {
+        content: "\2022";
+        color: #f67f7f;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    .function-content li span {
+        font-weight: 600;
+    }
+
+    .function-content li a {
+        color: #f67f7f;
+        text-decoration: none;
+    }
+
+    .function-content li a:hover {
+        text-decoration: underline;
+        color: #f67f7f;
+    }
+
+    .function-content li:last-child {
+        margin-bottom: 0;
+    }
+
+    .img-fluid {
+        color: #f67f7f;
+        mix-blend-mode: hard-light;
+        background-color: currentcolor;
+        background-size: 0%;
+    }
+
+    .pl-2 {
+        color: #ff810e;
+    }
+
+    .pl-2:hover {
+        color: #f67f7f;
+    }
+
+    video{
+        width: 70%;
+        height: 60%;
+        object-fit: fill;
+        border-radius: 20px;
+        transition: all 0.3s;
+    }
+
+    
+    @media (max-width: 768px) {
+        video {
+            width: 100%;
+            height: auto;
+        }
+        div{
+            padding: 10px;
+            margin: 0;
+            width: 100%;
+        }
+        h2{
+            font-size: 28px;
+            margin-top: 20px;
+            padding: 15px;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 200px;
+            margin-left: auto;
+            margin-right: auto; 
+        }
+        .py-5{
+            padding: 0px 0 !important;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mySwiper .swiper-slide {
+            width: 25%;
+            height: 100%;
+            opacity: 0.4;
+        }
+
+        .mySwiper .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+
+        .container { 
+            color: #c3daf4
+        } 
+
+        .function-all-thumbs .thumb-item {
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .function-all-thumbs .thumb-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .function-all-thumbs .thumb-item.active {
+            background-color: #f8f9fa;
+        }
+
+        .function-all-thumbs .thumb-item img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .function-all-thumbs .thumb-item span {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .function-content {
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .function-content p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .function-content h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .function-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .function-content li {
+            margin-bottom: 10px;
+        }
+
+        .function-content li:before {
+            content: "\2022";
+            color: #f67f7f;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .function-content li span {
+            font-weight: 600;
+        }
+
+        .function-content li a {
+            color: #f67f7f;
+            text-decoration: none;
+        }
+
+        .function-content li a:hover {
+            text-decoration: underline;
+            color: #f67f7f;
+        }
+
+        .function-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .img-fluid {
+            color: #f67f7f;
+            mix-blend-mode: hard-light;
+            background-color: currentcolor;
+            background-size: 0%;
+        }
+
+        .pl-2 {
+            color: #ff810e;
+        }
+
+        .pl-2:hover {
+            color: #f67f7f;
+        }
+        
+
+    }
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <h2 style="display:grid; place-items:center;">Video Editing and Manipulation Tool Using AI</h2>
+
+<div class="container py-5 text-center">
+    <h2 class="font-size-42 font-weight-extra-bold mb-3" style="color: rgb(255, 180, 220);">Start Creating in a Simple Way</h2>
+    <div class="font-size-large">You can easily make impressive and captivating videos using Vool . AI, a video editor using AI, With  built-in editing features, 
+<br class="d-none d-xl-block"> manipulating videos only requires a few simple steps. Enjoy the powerful features of video editor.</div>
+    <div class="row justify-content-center pt-4">
+      <div class="col-xxl-7 col-xl-8 col-lg-10 pt-4 d-none d-md-block">
+        <ul class="function-all-thumbs text-center d-flex justify-content-md-between position-relative py-0 px-md-3 m-0 h5 font-weight-extra-bold list-unstyled">
+          <li class="thumb-item active">
+            <div class="d-inline-flex align-items-center">
+              <img src="https://images.wondershare.com/filmora/filmora12/product/function-edit.svg" class="img-fluid" alt="function-edit">
+              <span class="pl-2">Background Removal</span>
+            </div>
+          </li>
+          <li class="thumb-item">
+            <div class="d-inline-flex align-items-center">
+              <img src="https://images.wondershare.com/filmora/filmora12/product/function-audio.svg" class="img-fluid" alt="function-audio">
+              <span class="pl-2">Object Detection</span>
+            </div>
+          </li>
+          <li class="thumb-item">
+            <div class="d-inline-flex align-items-center">
+              <img src="https://images.wondershare.com/filmora/filmora12/product/function-effects.svg" class="img-fluid" alt="function-color">
+              <span class="pl-2">Video Stablization</span>
+            </div>
+          </li>
+          <li class="thumb-item">
+            <div class="d-inline-flex align-items-center">
+              <img src="https://images.wondershare.com/filmora/filmora12/product/function-color.svg" class="img-fluid" alt="function-effects">
+              <span class="pl-2">Video Compressor</span>
+            </div>
+          </li>
+        </ul>
+    </div>
+    <div class="video-container">
+      <div class="function-content">
+        <video src="https://v1.cdnpk.net/videvo_files/video/partners0295/large_preview/h91669fd9_230822_01_Basketball%20Player_4k_067.mp4" alt="Audio GIF" controls autoplay loop muted ></video>
+      </div>
+    </div>
+    <div class="video-container">
+        <div class="function-content">
+          <video src="https://ak.picdn.net/shutterstock/videos/1064002762/preview/stock-footage-autonomous-or-driverless-car-driving-through-a-crowded-street-in-los-angeles-computer-vision-with.mp4" alt="Edit GIF" controls autoplay loop muted ></video>
+        </div>
+      </div>
+      <div class="video-container">
+        <div class="function-content">
+          <video src="https://videocdn.cdnpk.net/joy/content/video/free/video0453/large_preview/_import_605f3208c69901.23709201.mp4" alt="Object GIF" controls autoplay loop muted ></video>
+        </div>
+      </div>
+      <div class="video-container">
+        <div class="function-content">
+          <video src="https://ak.picdn.net/shutterstock/videos/1108312879/preview/stock-footage-social-network-concept-with-blockchain-architecture-visualization-of-a-metaverse-big-data-with.mp4" alt="Stabilize GIF" controls autoplay loop muted ></video>
+        </div>
+      </div>
+    
+<button style="width: fit-content; padding: 10px 20px;">
+    <a href="/uploads" style="text-decoration: none;"><bi>Start Video Editing</bi></a>
+
+    <div class="star-1">
+      <svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 784.11 815.53"
+        style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+        version="1.1"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs></defs>
+        <g id="Layer_x0020_1">
+          <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+          <path
+            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+            class="fil0"
+          ></path>
+        </g>
+      </svg>
+    </div>
+    <div class="star-2">
+      <svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 784.11 815.53"
+        style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+        version="1.1"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs></defs>
+        <g id="Layer_x0020_1">
+          <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+          <path
+            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+            class="fil0"
+          ></path>
+        </g>
+      </svg>
+    </div>
+    <div class="star-3">
+      <svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 784.11 815.53"
+        style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+        version="1.1"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs></defs>
+        <g id="Layer_x0020_1">
+          <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+          <path
+            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+            class="fil0"
+          ></path>
+        </g>
+      </svg>
+    </div>
+    <div class="star-4">
+      <svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 784.11 815.53"
+        style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+        version="1.1"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs></defs>
+        <g id="Layer_x0020_1">
+          <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+          <path
+            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+            class="fil0"
+          ></path>
+        </g>
+      </svg>
+    </div>
+    <div class="star-5">
+      <svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 784.11 815.53"
+        style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+        version="1.1"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs></defs>
+        <g id="Layer_x0020_1">
+          <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+          <path
+            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+            class="fil0"
+          ></path>
+        </g>
+      </svg>
+    </div>
+    <div class="star-6">
+      <svg
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 784.11 815.53"
+        style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+        version="1.1"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs></defs>
+        <g id="Layer_x0020_1">
+          <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+          <path
+            d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+            class="fil0"
+          ></path>
+        </g>
+      </svg>
+    </div>
+  </button>
+  
+<!-- button css -->
+<style>
+    button {
+  position: relative;
+  padding: 20px 35px;
+  background: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+  box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
+  border-radius: 100px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+button:hover bi {
+  color: #ffffff;
+}
+
+.star-1 {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 25px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fffdef);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+}
+
+.star-2 {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fffdef);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.star-3 {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fffdef);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.star-4 {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  width: 8px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fffdef);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.star-5 {
+  position: absolute;
+  top: 25%;
+  left: 45%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fffdef);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+.star-6 {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: 5px;
+  height: auto;
+  filter: drop-shadow(0 0 0 #fffdef);
+  z-index: -5;
+  transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+}
+
+button:hover {
+  background: #000000;
+  color: #ffffff !important;
+  box-shadow: 0 0 80px #ffffff8c;
+}
+
+button:hover .star-1 {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 20px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fffdef);
+  z-index: 2;
+}
+
+button:hover .star-2 {
+  position: absolute;
+  top: 35%;
+  left: -25%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fffdef);
+  z-index: 2;
+}
+
+button:hover .star-3 {
+  position: absolute;
+  top: 80%;
+  left: -10%;
+  width: 10px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fffdef);
+  z-index: 2;
+}
+
+button:hover .star-4 {
+  position: absolute;
+  top: -25%;
+  left: 105%;
+  width: 20px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fffdef);
+  z-index: 2;
+}
+
+button:hover .star-5 {
+  position: absolute;
+  top: 30%;
+  left: 115%;
+  width: 15px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fffdef);
+  z-index: 2;
+}
+
+button:hover .star-6 {
+  position: absolute;
+  top: 80%;
+  left: 105%;
+  width: 10px;
+  height: auto;
+  filter: drop-shadow(0 0 10px #fffdef);
+  z-index: 2;
+}
+
+.fil0 {
+  fill: #fffdef;
+}
+
+</style>
+
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+      // Hide all video containers except the first one
+      $(".video-container").not(":first").hide();
+      
+      $(".function-all-thumbs .thumb-item").click(function(){
+        $(".function-all-thumbs .thumb-item").removeClass("active");
+        $(this).addClass("active");
+        
+        // Get the index of the clicked thumb-item
+        var index = $(this).index();
+        
+        // Hide all video containers
+        $(".video-container").hide();
+        
+        // Show the video container at the corresponding index
+        $(".video-container").eq(index).show();
+      });
+    });
+
+    
+  </script>
+
+
+
+ {% endblock %}
+{% block js %}
+{% endblock %}
+

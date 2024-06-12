@@ -1,0 +1,987 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+<style>
+  .container {
+    color: #c3daf4
+  }
+
+  .function-all-thumbs .thumb-item {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+
+  .function-all-thumbs .thumb-item:hover {
+    background-color: #f8f9fa;
+  }
+
+  .function-all-thumbs .thumb-item.active {
+    background-color: #f8f9fa;
+  }
+
+  .function-all-thumbs .thumb-item img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .function-all-thumbs .thumb-item span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .function-content {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .function-content p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .function-content h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .function-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .function-content li {
+    margin-bottom: 10px;
+  }
+
+  .function-content li:before {
+    content: "\2022";
+    color: #f67f7f;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+
+  .function-content li span {
+    font-weight: 600;
+  }
+
+  .function-content li a {
+    color: #f67f7f;
+    text-decoration: none;
+  }
+
+  .function-content li a:hover {
+    text-decoration: underline;
+    color: #f67f7f;
+  }
+
+  .function-content li:last-child {
+    margin-bottom: 0;
+  }
+
+  .img-fluid {
+    color: #f7dfff;
+    mix-blend-mode: hard-light;
+    background-color: currentcolor;
+    background-size: 0%;
+  }
+
+  .pl-2 {
+    color: #ff810e;
+  }
+
+  .pl-2:hover {
+    color: #ff3a3a;
+  }
+
+  video {
+    width: 80%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  footer{
+    margin-top: 9% ;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      font-size: 14px;
+    }
+
+    .function-all-thumbs .thumb-item {
+      padding: 5px 10px;
+    }
+
+    .function-all-thumbs .thumb-item img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .function-content {
+      padding: 10px;
+    }
+
+    .function-content p {
+      font-size: 14px;
+    }
+
+    .function-content h3 {
+      font-size: 18px;
+    }
+
+    .function-content li:before {
+      font-size: 10px;
+    }
+
+    video {
+      width: 100%;
+    }
+  }
+</style>
+
+<!-- remove active class -->
+<script>
+  $(document).ready(function () {
+    $(".thumb-item").click(function () {
+      $(".thumb-item").removeClass("active");
+      $(this).addClass("active");
+    });
+  });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<h2 style="display:grid; place-items:center;">Video Editing and Manipulation Tool Using AI</h2>
+
+<div class="container py-5 text-center">
+  <!-- Your video goes here -->
+  <h2 class="font-size-42 font-weight-extra-bold mb-3" style="color: rgb(255, 180, 220);">Your Video Goes Here</h2>
+  <video id="video" controls loop muted style="width: 40%;">
+    <source src="/{{ file }}" type="video/mp4">
+  </video>
+  <div class="row justify-content-center pt-4">
+    <!-- Function thumbnails -->
+    <div class="col-xxl-7 col-xl-8 col-lg-10 pt-4 d-none d-md-block">
+      <ul
+        class="function-all-thumbs text-center d-flex justify-content-md-between position-relative py-0 px-md-3 m-0 h5 font-weight-extra-bold list-unstyled">
+        <!-- <li class="thumb-item active">
+          <div class="d-inline-flex align-items-center">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-edit.svg" class="img-fluid"
+              alt="function-edit">
+            <span class="pl-2" data-bs-toggle="modal" data-bs-target="#stablize">Stablize</span>
+          </div>
+        </li> -->
+        <li class="thumb-item active">
+          <div class="d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#compress">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-color.svg" class="img-fluid"
+              alt="function-effects">
+            <span class="pl-2">Compressor</span>
+          </div>
+        </li>
+        <li class="thumb-item">
+          <div class="d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_text_to_video">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-audio.svg" class="img-fluid"
+              alt="function-audio">
+            <span class="pl-2">Text-Overlay</span>
+          </div>
+        </li>
+        <li class="thumb-item">
+          <div class="d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edittrim">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-effects.svg" class="img-fluid"
+              alt="function-color">
+            <span class="pl-2">Clip Extraction</span>
+          </div>
+        </li>
+        <li class="thumb-item">
+          <div class="d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#background">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-ux.svg" class="img-fluid"
+              alt="function-ux">
+            <span class="pl-2">Background</span>
+          </div>
+        </li>
+      </ul>
+      <br>
+      <ul class="function-all-thumbs text-center d-flex justify-content-md-between position-relative py-0 px-md-3 m-0 h5 font-weight-extra-bold list-unstyled">
+        <li class="thumb-item">
+          <div class="d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#stablize">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-edit.svg" class="img-fluid"
+              alt="function-edit">
+            <span class="pl-2">Stablize Video</span>
+          </div>
+        </li>
+        <li class="thumb-item">
+          <div class="d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#object">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-effects.svg" class="img-fluid"
+              alt="function-color">
+            <span class="pl-2">Object Detection</span>
+          </div>
+        </li>
+        <li class="thumb-item">
+          <div class="d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#videoSpeed">
+            <img src="https://images.wondershare.com/filmora/filmora12/product/function-color.svg" class="img-fluid"
+              alt="function-effects">
+            <span class="pl-2">Video Speed Adjustment</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <br> <br>
+      <!-- see edited videos button  -->
+      <button style="width: fit-content; padding: 10px 20px;">
+        <a href="/results" style="text-decoration: none;">
+          <bi>See Edited Video</bi>
+        </a>
+
+        <div class="star-1">
+          <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+            style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+            version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <defs></defs>
+            <g id="Layer_x0020_1">
+              <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+              <path
+                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                class="fil0"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="star-2">
+          <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+            style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+            version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <defs></defs>
+            <g id="Layer_x0020_1">
+              <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+              <path
+                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                class="fil0"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="star-3">
+          <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+            style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+            version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <defs></defs>
+            <g id="Layer_x0020_1">
+              <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+              <path
+                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                class="fil0"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="star-4">
+          <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+            style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+            version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <defs></defs>
+            <g id="Layer_x0020_1">
+              <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+              <path
+                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                class="fil0"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="star-5">
+          <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+            style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+            version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <defs></defs>
+            <g id="Layer_x0020_1">
+              <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+              <path
+                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                class="fil0"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="star-6">
+          <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53"
+            style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+            version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+            <defs></defs>
+            <g id="Layer_x0020_1">
+              <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+              <path
+                d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                class="fil0"></path>
+            </g>
+          </svg>
+        </div>
+      </button>
+      <br>
+    </div>
+
+    <style>
+      button {
+        position: relative;
+        padding: 20px 35px;
+        background: #ffffff;
+        font-size: 20px;
+        font-weight: 600;
+        color: #000000;
+        box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
+        border-radius: 100px;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+      }
+
+      button:hover bi {
+        color: #ffffff;
+      }
+
+      .star-1 {
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        width: 25px;
+        height: auto;
+        filter: drop-shadow(0 0 0 #fffdef);
+        z-index: -5;
+        transition: all 0.8s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+      }
+
+      .star-2 {
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        width: 15px;
+        height: auto;
+        filter: drop-shadow(0 0 0 #fffdef);
+        z-index: -5;
+        transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+      }
+
+      .star-3 {
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        width: 5px;
+        height: auto;
+        filter: drop-shadow(0 0 0 #fffdef);
+        z-index: -5;
+        transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+      }
+
+      .star-4 {
+        position: absolute;
+        top: 20%;
+        left: 40%;
+        width: 8px;
+        height: auto;
+        filter: drop-shadow(0 0 0 #fffdef);
+        z-index: -5;
+        transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+      }
+
+      .star-5 {
+        position: absolute;
+        top: 25%;
+        left: 45%;
+        width: 15px;
+        height: auto;
+        filter: drop-shadow(0 0 0 #fffdef);
+        z-index: -5;
+        transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+      }
+
+      .star-6 {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        width: 5px;
+        height: auto;
+        filter: drop-shadow(0 0 0 #fffdef);
+        z-index: -5;
+        transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+      }
+
+      button:hover {
+        background: #000000;
+        color: #ffffff !important;
+        box-shadow: 0 0 80px #ffffff8c;
+      }
+
+      button:hover .star-1 {
+        position: absolute;
+        top: -20%;
+        left: -20%;
+        width: 20px;
+        height: auto;
+        filter: drop-shadow(0 0 10px #fffdef);
+        z-index: 2;
+      }
+
+      button:hover .star-2 {
+        position: absolute;
+        top: 35%;
+        left: -25%;
+        width: 15px;
+        height: auto;
+        filter: drop-shadow(0 0 10px #fffdef);
+        z-index: 2;
+      }
+
+      button:hover .star-3 {
+        position: absolute;
+        top: 80%;
+        left: -10%;
+        width: 10px;
+        height: auto;
+        filter: drop-shadow(0 0 10px #fffdef);
+        z-index: 2;
+      }
+
+      button:hover .star-4 {
+        position: absolute;
+        top: -25%;
+        left: 105%;
+        width: 20px;
+        height: auto;
+        filter: drop-shadow(0 0 10px #fffdef);
+        z-index: 2;
+      }
+
+      button:hover .star-5 {
+        position: absolute;
+        top: 30%;
+        left: 115%;
+        width: 15px;
+        height: auto;
+        filter: drop-shadow(0 0 10px #fffdef);
+        z-index: 2;
+      }
+
+      button:hover .star-6 {
+        position: absolute;
+        top: 80%;
+        left: 105%;
+        width: 10px;
+        height: auto;
+        filter: drop-shadow(0 0 10px #fffdef);
+        z-index: 2;
+      }
+
+      .fil0 {
+        fill: #fffdef;
+      }
+    </style>
+
+  </div>
+</div>
+
+<!--  -->
+
+
+<!-- Modal Body-->
+<!-- text overlay -->
+<div class="modal fade" id="add_text_to_video" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form hx-post="/edit/add_text_to_video/{{id}}">
+      <div class="modal-content close">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleId">
+            Video Text Overlay
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid" data-mdb-input-init class="form-outline mb-4">
+            <input type="number" name="start_time" id="numStart" class="form-control" placeholder="Enter Start time in seconds" />
+            <input type="number" name="end_time" id="numEnd" class="form-control" placeholder="Enter End time in seconds" />
+            <input type="number" name="fontsize" id="num3" class="form-control" placeholder="Enter Font size" hidden/>
+            <input type="text" name="text" id="myInput" class="form-control" placeholder="Enter Text" />
+            <input type="color" name="color" id="color" class="form-control" placeholder="Choose Color" value="#FFD6FC" />
+            <input type="number" name="duration" id="num" class="form-control" placeholder="Enter Duration" />
+            <select name="position" name="position" id="position" class="form-control">
+              <option value="" disabled selected>Choose Position🔻</option>
+              <option value="right">Right</option>
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+            </select>
+            <input type="text" name="output_name" id="output_name" class="form-control" placeholder="Enter Output name" /> 
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container1">
+            <button id="myButtonTextOverlay" class="btn2">
+              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                  fill="currentColor"></path>
+              </svg>
+              <span id="executeText">Execute</span>
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- stablize -->
+<div class="modal fade" id="stablize" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form hx-post="/edit/stablize/{{id}}">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleId">
+          Stablize Video
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" data-mdb-input-init class="form-outline mb-4">
+            <input type="text" name="output_name" id="output_name" placeholder="Enter output video name "
+              class="form-control" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="container1">
+          <button id="myButtonStablize" class="btn2">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                fill="currentColor"></path>
+            </svg>
+            <span id="executeText">Execute</span>
+          </button>
+      </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- clip extraction -->
+<div class="modal fade" id="edittrim" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form hx-post="/edit/edittrim/{{id}}">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleId">
+            Video Clip Extractor
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid" data-mdb-input-init class="form-outline mb-4">
+            <input type="number" name="start_time" id="startTime" class="form-control" placeholder="Enter Start time in seconds" />
+            <input type="number" name="end_time" id="endTime" class="form-control" placeholder="Enter End time in seconds" />
+            <input type="text" name="output_name" id="output_clip_name" class="form-control" placeholder="Enter Clip Name" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container1">
+            <button id="myButtonT" class="btn2">
+              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                  fill="currentColor"></path>
+              </svg>
+              <span id="executeText">Execute</span>
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- video speed -->
+<div class="modal fade" id="videoSpeed" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form hx-post="/edit/videospeed/{{id}}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Video Speed Adjustment </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" data-mdb-input-init class="form-outline mb-4">
+           <span>Adjust Video Speed</span>
+            <input type="range" name="speed" id="speedx" min="0.5" max="2" step="0.5" list="values1"/>
+            <datalist id="values1">
+              <option value="0.5" label="Slow Motion"></option>
+              <option value="1.0" label="Normal Speed"></option>
+              <option value="1.5" label="Fast Forward"></option>
+              <option value="2.0" label="Very Fast"></option>
+            </datalist>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <div class="container1">
+                <button id="myButtonVSpeed" class="btn2">
+                  <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path
+                      d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                      fill="currentColor"></path>
+                  </svg>
+                  <span id="executeText">Execute</span>
+                </button>
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+<!-- object blur -->
+<div class="modal fade" id="object" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form hx-post="/edit/object/{{id}}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Object detection in video </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" data-mdb-input-init class="form-outline mb-4">
+            <input type="text" name="objname" id="objnane" placeholder="Enter object name" class="form-control" />
+            </div>
+            </div>
+            <div class="modal-footer">
+              <div class="container1">
+                <button id="myButtonblur" class="btn2">
+                  <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path
+                      d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                      fill="currentColor"></path>
+                  </svg>
+                  <span id="executeText">Execute</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+<!-- compress -->
+<div class="modal fade" id="compress" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form hx-post="/edit/compress/{{id}}">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleId">
+            Video Compressor
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid" data-mdb-input-init class="form-outline mb-4">
+            <span>Choose resize ratio</span>
+            <input type="range" name="resize" id="resize" min="0" max="1" step="0.1" list="values" width="100%" />
+            <datalist id="values">
+              <option value="0" label="0"></option>
+              <option value="0.1" label="0.1"></option>
+              <option value="0.2" label="0.2"></option>
+              <option value="0.3" label="0.3"></option>
+              <option value="0.4" label="0.4"></option>
+              <option value="0.5" label="0.5"></option>
+              <option value="0.6" label="0.6"></option>
+              <option value="0.7" label="0.7"></option>
+              <option value="0.8" label="0.8"></option>
+              <option value="0.9" label="0.9"></option>
+              <option value="1" label="1"></option>
+            </datalist>
+            <input type="number" name="fps" id="fps" placeholder="Choose fps ratio " class="form-control" />
+            <input type="text" name="output_name" id="output_name" placeholder="Enter output name " class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container1">
+            <button id="myButtonCompress" class="btn2">
+              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                  fill="currentColor"></path>
+              </svg>
+              <span id="executeText">Execute</span>
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- background removal -->
+<div class="modal fade" id="background" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form hx-post="/edit/background/{{id}}">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitleId">
+            Video background removal
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid" data-mdb-input-init class="form-outline mb-4">
+            <input type="text" name="output_name" id="output_name" placeholder="Enter output video name"
+              class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="container1">
+            <button id="myButton" class="btn2">
+              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                  fill="currentColor"></path>
+              </svg>
+              <span id="executeText">Execute</span>
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+  </div>
+
+<style>
+  .modal {
+    color: #5dff85 !important;
+    background-color: #0f0c29 !important;
+  }
+
+  .modal-header {
+    color: rgb(23, 22, 23);
+  }
+
+  input {
+    margin: 10px 0px;
+    width: 90%;
+  }
+
+  .btn-close:hover {
+    background-image: url("https://www.blackgum.com.au/graphics/icon_close.00.png") !important;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .container1 {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .loading {
+    display: none;
+    width: 100px;
+    height: 20px;
+    background-color: #bfe0b8;
+    margin-top: 10px;
+  }
+
+  .btn2 {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 0.8em 1.3em 0.8em 0.9em;
+    color: white;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    /* border: none;
+  letter-spacing: 0.05em;
+  border-radius: 16px; */
+  }
+
+  .btn2 svg {
+    margin-right: 3px;
+    transform: rotate(30deg);
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .btn2 span {
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .btn2:hover svg {
+    transform: translateX(5px) rotate(90deg);
+  }
+
+  .btn2:hover span {
+    transform: translateX(7px);
+  }
+
+
+  .modal-footer {
+    padding: calc(var(--bs-modal-padding) - var(--bs-modal-footer-gap)* 1) !important;
+  }
+
+  .modal-body {
+    padding: calc(var(--bs-modal-padding) - var(--bs-modal-body-padding-y)* 2) !important;
+    color: black !important;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 5px;
+    /* Padding for the content inside the input fields */
+    line-height: 1.5;
+    border-radius: 1rem;
+  }
+
+
+
+  .form-input-material {
+    --input-default-border-color: white;
+    --input-border-bottom-color: white;
+
+    input {
+      color: white;
+    }
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 40px;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109),
+      0 1px 1px rgba(128, 128, 128, 0.155),
+      0 2.1px 2.1px rgba(128, 128, 128, 0.195),
+      0 4.4px 4.4px rgba(128, 128, 128, 0.241),
+      0 12px 12px rgba(128, 128, 128, 0.35);
+  }
+
+  datalist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    writing-mode: horizontal-tb;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .modal-content {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      font-size: 18px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .btn2 {
+      font-size: 14px;
+      padding: 0.6em 1.1em 0.6em 0.7em;
+    }
+
+    .btn2 svg {
+      margin-right: 2px;
+    }
+
+    .btn2 span {
+      display: none;
+    }
+    datalist{
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+    }
+    .d-md-block {
+      display: block !important;
+    }
+  }
+</style>
+
+{% endblock %}
+{% block js %}
+<!-- generating button spinner -->
+<script>
+  // cache the button element and store it in a variable
+
+  document.getElementById("myButton").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+  document.getElementById("myButtonT").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+  
+  document.getElementById("myButtonCompress").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+  document.getElementById("myButtonTextOverlay").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+  document.getElementById("myButtonVSpeed").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+  document.getElementById("myButtonStablize").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+  document.getElementById("myButtonAudio").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+  document.getElementById("myButtonblur").addEventListener("click", function () {
+    // remove svg and add a spinner
+    this.innerHTML = `<div class="spinner-border" role="status">
+                  </div> Generating...`
+
+  });
+
+
+</script>
+{% endblock %}

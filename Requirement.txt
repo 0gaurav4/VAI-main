@@ -1,0 +1,17 @@
+flask
+sqlalchemy
+opencv-contrib-python
+ultralytics
+mediapipe
+supervision
+moviepy
+ffmpeg
+scikit-image
+gradio==3.45.0
+
+# download ImageMagick
+
+
+# pip install -r Requirement.txt
+
+# flask --app app.py run
